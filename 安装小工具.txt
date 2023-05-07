@@ -1,0 +1,3 @@
+sudo apt-get install python3-pyqt5
+sudo pip install sip PyQt5 PyQt5-tools -i https://pypi.tuna.tsinghua.edu.cn/simple --verbose
+https://cs.nju.edu.cn/changxu/2_compiler/index.html

@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "blab1"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"main.h": "c",
+			"stdlib.h": "c",
+			"string.h": "c",
+			"ctype.h": "c",
+			"stdio.h": "c",
+			"unistd.h": "c"
+		}
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": []
+	}
+}

@@ -1,8 +1,6 @@
-# HIT2022CompilerPrinciple
-哈工大2022春编译原理
+# HIT2023CompilerPrinciple
+哈工大2023春编译原理，参考自@[Carlofkl](https://github.com/Carlofkl)/[HIT2022CompilerPrinciple](https://github.com/Carlofkl/HIT2022CompilerPrinciple)
 
-仅供学习参考，不建议直接套用搬运
+修复了诸多BUGS，并完善了一些功能。
 
-各位学弟学妹clone后star下啦～
-
-有问题欢迎联系carlo_fkl@163.com
+使用Ubuntu，VS Code。安装好VS Code之后，选择从文件打开工作区，可以直接编译运行。

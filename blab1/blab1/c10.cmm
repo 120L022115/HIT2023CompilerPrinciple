@@ -1,0 +1,9 @@
+int main(){
+
+/* 
+blockcomment
+	/* nested comment */
+	*/
+*/
+int i = 1;
+}

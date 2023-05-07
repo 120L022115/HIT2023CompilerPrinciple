@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "lab2"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"semantic.h": "c",
+			"*.tcc": "c",
+			"cmath": "c",
+			"typeinfo": "c"
+		}
+	}
+}

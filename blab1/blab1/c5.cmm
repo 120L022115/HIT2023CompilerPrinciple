@@ -1,0 +1,4 @@
+int inc(){
+int i = 0123;
+int j = 0x3F;
+}
