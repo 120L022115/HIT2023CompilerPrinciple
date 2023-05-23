@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "lab3"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"syntax.tab.h": "c",
+			"stdlib.h": "c",
+			"semantic.h": "c",
+			"intercodegenerate.h": "c",
+			"multitree.h": "c",
+			"string.h": "c",
+			"semantic.C": "cpp",
+			"stdio.h": "c",
+			"tablenode.h": "c"
+		}
+	}
+}

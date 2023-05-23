@@ -1,0 +1,1729 @@
+状态 26 冲突：1 项偏移/归约
+状态 31 冲突：1 项偏移/归约
+
+
+语法
+
+    0 $accept: Program $end
+
+    1 Program: ExtDefList
+
+    2 ExtDefList: ExtDef ExtDefList
+    3           | %empty
+
+    4 ExtDef: Specifier ExtDecList SEMI
+    5       | Specifier SEMI
+    6       | Specifier FunDec CompSt
+
+    7 ExtDecList: VarDec
+    8           | VarDec COMMA ExtDecList
+
+    9 Specifier: TYPE
+   10          | StructSpecifier
+   11          | error
+
+   12 StructSpecifier: STRUCT OptTag LC DefList RC
+   13                | STRUCT Tag
+
+   14 OptTag: ID
+   15       | %empty
+
+   16 Tag: ID
+
+   17 VarDec: ID
+   18       | VarDec LB INT RB
+
+   19 FunDec: ID LP VarList RP
+   20       | ID LP RP
+   21       | error RP
+   22       | error
+
+   23 VarList: ParamDec COMMA VarList
+   24        | error VarList
+   25        | ParamDec
+
+   26 ParamDec: Specifier VarDec
+
+   27 CompSt: LC DefList StmtList RC
+
+   28 StmtList: Stmt StmtList
+   29         | %empty
+
+   30 Stmt: Exp SEMI
+   31     | CompSt
+   32     | RETURN Exp SEMI
+   33     | IF LP Exp RP Stmt
+   34     | IF LP Exp RP Stmt ELSE Stmt
+   35     | WHILE LP Exp RP Stmt
+   36     | error SEMI
+
+   37 DefList: Def DefList
+   38        | %empty
+
+   39 Def: Specifier DecList SEMI
+   40    | error SEMI
+
+   41 DecList: Dec
+   42        | Dec COMMA DecList
+
+   43 Dec: VarDec
+   44    | VarDec ASSIGNOP Exp
+
+   45 Exp: Exp ASSIGNOP Exp
+   46    | Exp AND Exp
+   47    | Exp OR Exp
+   48    | Exp RELOP Exp
+   49    | Exp PLUS Exp
+   50    | Exp MINUS Exp
+   51    | Exp STAR Exp
+   52    | Exp DIV Exp
+   53    | LP Exp RP
+   54    | MINUS Exp
+   55    | NOT Exp
+   56    | ID LP Args RP
+   57    | ID LP RP
+   58    | Exp LB Exp RB
+   59    | Exp DOT ID
+   60    | ID
+   61    | INT
+   62    | FLOAT
+
+   63 Args: Exp COMMA Args
+   64     | Exp
+
+
+终结语词，附有它们出现处的规则
+
+    $end (0) 0
+    error (256) 11 21 22 24 36 40
+    INT <type_node> (258) 18 61
+    FLOAT <type_node> (259) 62
+    ID <type_node> (260) 14 16 17 19 20 56 57 59 60
+    SEMI <type_node> (261) 4 5 30 32 36 39 40
+    COMMA <type_node> (262) 8 23 42 63
+    ASSIGNOP <type_node> (263) 44 45
+    RELOP <type_node> (264) 48
+    PLUS <type_node> (265) 49
+    MINUS <type_node> (266) 50 54
+    STAR <type_node> (267) 51
+    DIV <type_node> (268) 52
+    AND <type_node> (269) 46
+    OR <type_node> (270) 47
+    DOT <type_node> (271) 59
+    NOT <type_node> (272) 55
+    TYPE <type_node> (273) 9
+    LP <type_node> (274) 19 20 33 34 35 53 56 57
+    RP <type_node> (275) 19 20 21 33 34 35 53 56 57
+    LB <type_node> (276) 18 58
+    RB <type_node> (277) 18 58
+    LC <type_node> (278) 12 27
+    RC <type_node> (279) 12 27
+    STRUCT <type_node> (280) 12 13
+    RETURN <type_node> (281) 32
+    IF <type_node> (282) 33 34
+    ELSE <type_node> (283) 34
+    WHILE <type_node> (284) 35
+    LOWER_THAN_ELSE (285)
+
+
+非终结语词，附有它们出现处的规则
+
+    $accept (31)
+        on left: 0
+    Program <type_node> (32)
+        on left: 1
+        on right: 0
+    ExtDefList <type_node> (33)
+        on left: 2 3
+        on right: 1 2
+    ExtDef <type_node> (34)
+        on left: 4 5 6
+        on right: 2
+    ExtDecList <type_node> (35)
+        on left: 7 8
+        on right: 4 8
+    Specifier <type_node> (36)
+        on left: 9 10 11
+        on right: 4 5 6 26 39
+    StructSpecifier <type_node> (37)
+        on left: 12 13
+        on right: 10
+    OptTag <type_node> (38)
+        on left: 14 15
+        on right: 12
+    Tag <type_node> (39)
+        on left: 16
+        on right: 13
+    VarDec <type_node> (40)
+        on left: 17 18
+        on right: 7 8 18 26 43 44
+    FunDec <type_node> (41)
+        on left: 19 20 21 22
+        on right: 6
+    VarList <type_node> (42)
+        on left: 23 24 25
+        on right: 19 23 24
+    ParamDec <type_node> (43)
+        on left: 26
+        on right: 23 25
+    CompSt <type_node> (44)
+        on left: 27
+        on right: 6 31
+    StmtList <type_node> (45)
+        on left: 28 29
+        on right: 27 28
+    Stmt <type_node> (46)
+        on left: 30 31 32 33 34 35 36
+        on right: 28 33 34 35
+    DefList <type_node> (47)
+        on left: 37 38
+        on right: 12 27 37
+    Def <type_node> (48)
+        on left: 39 40
+        on right: 37
+    DecList <type_node> (49)
+        on left: 41 42
+        on right: 39 42
+    Dec <type_node> (50)
+        on left: 43 44
+        on right: 41 42
+    Exp <type_node> (51)
+        on left: 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62
+        on right: 30 32 33 34 35 44 45 46 47 48 49 50 51 52 53 54 55 58 59 63 64
+    Args <type_node> (52)
+        on left: 63 64
+        on right: 56 63
+
+
+状态 0
+
+    0 $accept: . Program $end
+
+    error   偏移，并进入状态 1
+    TYPE    偏移，并进入状态 2
+    STRUCT  偏移，并进入状态 3
+
+    $end  使用规则 3 以归约 (ExtDefList)
+
+    Program          转到状态 4
+    ExtDefList       转到状态 5
+    ExtDef           转到状态 6
+    Specifier        转到状态 7
+    StructSpecifier  转到状态 8
+
+
+状态 1
+
+   11 Specifier: error .
+
+    $default  使用规则 11 以归约 (Specifier)
+
+
+状态 2
+
+    9 Specifier: TYPE .
+
+    $default  使用规则 9 以归约 (Specifier)
+
+
+状态 3
+
+   12 StructSpecifier: STRUCT . OptTag LC DefList RC
+   13                | STRUCT . Tag
+
+    ID  偏移，并进入状态 9
+
+    $default  使用规则 15 以归约 (OptTag)
+
+    OptTag  转到状态 10
+    Tag     转到状态 11
+
+
+状态 4
+
+    0 $accept: Program . $end
+
+    $end  偏移，并进入状态 12
+
+
+状态 5
+
+    1 Program: ExtDefList .
+
+    $default  使用规则 1 以归约 (Program)
+
+
+状态 6
+
+    2 ExtDefList: ExtDef . ExtDefList
+
+    error   偏移，并进入状态 1
+    TYPE    偏移，并进入状态 2
+    STRUCT  偏移，并进入状态 3
+
+    $end  使用规则 3 以归约 (ExtDefList)
+
+    ExtDefList       转到状态 13
+    ExtDef           转到状态 6
+    Specifier        转到状态 7
+    StructSpecifier  转到状态 8
+
+
+状态 7
+
+    4 ExtDef: Specifier . ExtDecList SEMI
+    5       | Specifier . SEMI
+    6       | Specifier . FunDec CompSt
+
+    error  偏移，并进入状态 14
+    ID     偏移，并进入状态 15
+    SEMI   偏移，并进入状态 16
+
+    ExtDecList  转到状态 17
+    VarDec      转到状态 18
+    FunDec      转到状态 19
+
+
+状态 8
+
+   10 Specifier: StructSpecifier .
+
+    $default  使用规则 10 以归约 (Specifier)
+
+
+状态 9
+
+   14 OptTag: ID .
+   16 Tag: ID .
+
+    LC        使用规则 14 以归约 (OptTag)
+    $default  使用规则 16 以归约 (Tag)
+
+
+状态 10
+
+   12 StructSpecifier: STRUCT OptTag . LC DefList RC
+
+    LC  偏移，并进入状态 20
+
+
+状态 11
+
+   13 StructSpecifier: STRUCT Tag .
+
+    $default  使用规则 13 以归约 (StructSpecifier)
+
+
+状态 12
+
+    0 $accept: Program $end .
+
+    $default  接受
+
+
+状态 13
+
+    2 ExtDefList: ExtDef ExtDefList .
+
+    $default  使用规则 2 以归约 (ExtDefList)
+
+
+状态 14
+
+   21 FunDec: error . RP
+   22       | error .
+
+    RP  偏移，并进入状态 21
+
+    $default  使用规则 22 以归约 (FunDec)
+
+
+状态 15
+
+   17 VarDec: ID .
+   19 FunDec: ID . LP VarList RP
+   20       | ID . LP RP
+
+    LP  偏移，并进入状态 22
+
+    $default  使用规则 17 以归约 (VarDec)
+
+
+状态 16
+
+    5 ExtDef: Specifier SEMI .
+
+    $default  使用规则 5 以归约 (ExtDef)
+
+
+状态 17
+
+    4 ExtDef: Specifier ExtDecList . SEMI
+
+    SEMI  偏移，并进入状态 23
+
+
+状态 18
+
+    7 ExtDecList: VarDec .
+    8           | VarDec . COMMA ExtDecList
+   18 VarDec: VarDec . LB INT RB
+
+    COMMA  偏移，并进入状态 24
+    LB     偏移，并进入状态 25
+
+    $default  使用规则 7 以归约 (ExtDecList)
+
+
+状态 19
+
+    6 ExtDef: Specifier FunDec . CompSt
+
+    LC  偏移，并进入状态 26
+
+    CompSt  转到状态 27
+
+
+状态 20
+
+   12 StructSpecifier: STRUCT OptTag LC . DefList RC
+
+    error   偏移，并进入状态 28
+    TYPE    偏移，并进入状态 2
+    STRUCT  偏移，并进入状态 3
+
+    RC  使用规则 38 以归约 (DefList)
+
+    Specifier        转到状态 29
+    StructSpecifier  转到状态 8
+    DefList          转到状态 30
+    Def              转到状态 31
+
+
+状态 21
+
+   21 FunDec: error RP .
+
+    $default  使用规则 21 以归约 (FunDec)
+
+
+状态 22
+
+   19 FunDec: ID LP . VarList RP
+   20       | ID LP . RP
+
+    error   偏移，并进入状态 32
+    TYPE    偏移，并进入状态 2
+    RP      偏移，并进入状态 33
+    STRUCT  偏移，并进入状态 3
+
+    Specifier        转到状态 34
+    StructSpecifier  转到状态 8
+    VarList          转到状态 35
+    ParamDec         转到状态 36
+
+
+状态 23
+
+    4 ExtDef: Specifier ExtDecList SEMI .
+
+    $default  使用规则 4 以归约 (ExtDef)
+
+
+状态 24
+
+    8 ExtDecList: VarDec COMMA . ExtDecList
+
+    ID  偏移，并进入状态 37
+
+    ExtDecList  转到状态 38
+    VarDec      转到状态 18
+
+
+状态 25
+
+   18 VarDec: VarDec LB . INT RB
+
+    INT  偏移，并进入状态 39
+
+
+状态 26
+
+   27 CompSt: LC . DefList StmtList RC
+
+    error   偏移，并进入状态 28
+    TYPE    偏移，并进入状态 2
+    STRUCT  偏移，并进入状态 3
+
+    error   [使用规则 38 以归约 (DefList)]
+    INT     使用规则 38 以归约 (DefList)
+    FLOAT   使用规则 38 以归约 (DefList)
+    ID      使用规则 38 以归约 (DefList)
+    MINUS   使用规则 38 以归约 (DefList)
+    NOT     使用规则 38 以归约 (DefList)
+    LP      使用规则 38 以归约 (DefList)
+    LC      使用规则 38 以归约 (DefList)
+    RC      使用规则 38 以归约 (DefList)
+    RETURN  使用规则 38 以归约 (DefList)
+    IF      使用规则 38 以归约 (DefList)
+    WHILE   使用规则 38 以归约 (DefList)
+
+    Specifier        转到状态 29
+    StructSpecifier  转到状态 8
+    DefList          转到状态 40
+    Def              转到状态 31
+
+
+状态 27
+
+    6 ExtDef: Specifier FunDec CompSt .
+
+    $default  使用规则 6 以归约 (ExtDef)
+
+
+状态 28
+
+   11 Specifier: error .
+   40 Def: error . SEMI
+
+    SEMI  偏移，并进入状态 41
+
+    $default  使用规则 11 以归约 (Specifier)
+
+
+状态 29
+
+   39 Def: Specifier . DecList SEMI
+
+    ID  偏移，并进入状态 37
+
+    VarDec   转到状态 42
+    DecList  转到状态 43
+    Dec      转到状态 44
+
+
+状态 30
+
+   12 StructSpecifier: STRUCT OptTag LC DefList . RC
+
+    RC  偏移，并进入状态 45
+
+
+状态 31
+
+   37 DefList: Def . DefList
+
+    error   偏移，并进入状态 28
+    TYPE    偏移，并进入状态 2
+    STRUCT  偏移，并进入状态 3
+
+    error   [使用规则 38 以归约 (DefList)]
+    INT     使用规则 38 以归约 (DefList)
+    FLOAT   使用规则 38 以归约 (DefList)
+    ID      使用规则 38 以归约 (DefList)
+    MINUS   使用规则 38 以归约 (DefList)
+    NOT     使用规则 38 以归约 (DefList)
+    LP      使用规则 38 以归约 (DefList)
+    LC      使用规则 38 以归约 (DefList)
+    RC      使用规则 38 以归约 (DefList)
+    RETURN  使用规则 38 以归约 (DefList)
+    IF      使用规则 38 以归约 (DefList)
+    WHILE   使用规则 38 以归约 (DefList)
+
+    Specifier        转到状态 29
+    StructSpecifier  转到状态 8
+    DefList          转到状态 46
+    Def              转到状态 31
+
+
+状态 32
+
+   11 Specifier: error .
+   24 VarList: error . VarList
+
+    error   偏移，并进入状态 32
+    TYPE    偏移，并进入状态 2
+    STRUCT  偏移，并进入状态 3
+
+    ID  使用规则 11 以归约 (Specifier)
+
+    Specifier        转到状态 34
+    StructSpecifier  转到状态 8
+    VarList          转到状态 47
+    ParamDec         转到状态 36
+
+
+状态 33
+
+   20 FunDec: ID LP RP .
+
+    $default  使用规则 20 以归约 (FunDec)
+
+
+状态 34
+
+   26 ParamDec: Specifier . VarDec
+
+    ID  偏移，并进入状态 37
+
+    VarDec  转到状态 48
+
+
+状态 35
+
+   19 FunDec: ID LP VarList . RP
+
+    RP  偏移，并进入状态 49
+
+
+状态 36
+
+   23 VarList: ParamDec . COMMA VarList
+   25        | ParamDec .
+
+    COMMA  偏移，并进入状态 50
+
+    $default  使用规则 25 以归约 (VarList)
+
+
+状态 37
+
+   17 VarDec: ID .
+
+    $default  使用规则 17 以归约 (VarDec)
+
+
+状态 38
+
+    8 ExtDecList: VarDec COMMA ExtDecList .
+
+    $default  使用规则 8 以归约 (ExtDecList)
+
+
+状态 39
+
+   18 VarDec: VarDec LB INT . RB
+
+    RB  偏移，并进入状态 51
+
+
+状态 40
+
+   27 CompSt: LC DefList . StmtList RC
+
+    error   偏移，并进入状态 52
+    INT     偏移，并进入状态 53
+    FLOAT   偏移，并进入状态 54
+    ID      偏移，并进入状态 55
+    MINUS   偏移，并进入状态 56
+    NOT     偏移，并进入状态 57
+    LP      偏移，并进入状态 58
+    LC      偏移，并进入状态 26
+    RETURN  偏移，并进入状态 59
+    IF      偏移，并进入状态 60
+    WHILE   偏移，并进入状态 61
+
+    RC  使用规则 29 以归约 (StmtList)
+
+    CompSt    转到状态 62
+    StmtList  转到状态 63
+    Stmt      转到状态 64
+    Exp       转到状态 65
+
+
+状态 41
+
+   40 Def: error SEMI .
+
+    $default  使用规则 40 以归约 (Def)
+
+
+状态 42
+
+   18 VarDec: VarDec . LB INT RB
+   43 Dec: VarDec .
+   44    | VarDec . ASSIGNOP Exp
+
+    ASSIGNOP  偏移，并进入状态 66
+    LB        偏移，并进入状态 25
+
+    $default  使用规则 43 以归约 (Dec)
+
+
+状态 43
+
+   39 Def: Specifier DecList . SEMI
+
+    SEMI  偏移，并进入状态 67
+
+
+状态 44
+
+   41 DecList: Dec .
+   42        | Dec . COMMA DecList
+
+    COMMA  偏移，并进入状态 68
+
+    $default  使用规则 41 以归约 (DecList)
+
+
+状态 45
+
+   12 StructSpecifier: STRUCT OptTag LC DefList RC .
+
+    $default  使用规则 12 以归约 (StructSpecifier)
+
+
+状态 46
+
+   37 DefList: Def DefList .
+
+    $default  使用规则 37 以归约 (DefList)
+
+
+状态 47
+
+   24 VarList: error VarList .
+
+    $default  使用规则 24 以归约 (VarList)
+
+
+状态 48
+
+   18 VarDec: VarDec . LB INT RB
+   26 ParamDec: Specifier VarDec .
+
+    LB  偏移，并进入状态 25
+
+    $default  使用规则 26 以归约 (ParamDec)
+
+
+状态 49
+
+   19 FunDec: ID LP VarList RP .
+
+    $default  使用规则 19 以归约 (FunDec)
+
+
+状态 50
+
+   23 VarList: ParamDec COMMA . VarList
+
+    error   偏移，并进入状态 32
+    TYPE    偏移，并进入状态 2
+    STRUCT  偏移，并进入状态 3
+
+    Specifier        转到状态 34
+    StructSpecifier  转到状态 8
+    VarList          转到状态 69
+    ParamDec         转到状态 36
+
+
+状态 51
+
+   18 VarDec: VarDec LB INT RB .
+
+    $default  使用规则 18 以归约 (VarDec)
+
+
+状态 52
+
+   36 Stmt: error . SEMI
+
+    SEMI  偏移，并进入状态 70
+
+
+状态 53
+
+   61 Exp: INT .
+
+    $default  使用规则 61 以归约 (Exp)
+
+
+状态 54
+
+   62 Exp: FLOAT .
+
+    $default  使用规则 62 以归约 (Exp)
+
+
+状态 55
+
+   56 Exp: ID . LP Args RP
+   57    | ID . LP RP
+   60    | ID .
+
+    LP  偏移，并进入状态 71
+
+    $default  使用规则 60 以归约 (Exp)
+
+
+状态 56
+
+   54 Exp: MINUS . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 72
+
+
+状态 57
+
+   55 Exp: NOT . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 73
+
+
+状态 58
+
+   53 Exp: LP . Exp RP
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 74
+
+
+状态 59
+
+   32 Stmt: RETURN . Exp SEMI
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 75
+
+
+状态 60
+
+   33 Stmt: IF . LP Exp RP Stmt
+   34     | IF . LP Exp RP Stmt ELSE Stmt
+
+    LP  偏移，并进入状态 76
+
+
+状态 61
+
+   35 Stmt: WHILE . LP Exp RP Stmt
+
+    LP  偏移，并进入状态 77
+
+
+状态 62
+
+   31 Stmt: CompSt .
+
+    $default  使用规则 31 以归约 (Stmt)
+
+
+状态 63
+
+   27 CompSt: LC DefList StmtList . RC
+
+    RC  偏移，并进入状态 78
+
+
+状态 64
+
+   28 StmtList: Stmt . StmtList
+
+    error   偏移，并进入状态 52
+    INT     偏移，并进入状态 53
+    FLOAT   偏移，并进入状态 54
+    ID      偏移，并进入状态 55
+    MINUS   偏移，并进入状态 56
+    NOT     偏移，并进入状态 57
+    LP      偏移，并进入状态 58
+    LC      偏移，并进入状态 26
+    RETURN  偏移，并进入状态 59
+    IF      偏移，并进入状态 60
+    WHILE   偏移，并进入状态 61
+
+    RC  使用规则 29 以归约 (StmtList)
+
+    CompSt    转到状态 62
+    StmtList  转到状态 79
+    Stmt      转到状态 64
+    Exp       转到状态 65
+
+
+状态 65
+
+   30 Stmt: Exp . SEMI
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    SEMI      偏移，并进入状态 80
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    LB        偏移，并进入状态 90
+
+
+状态 66
+
+   44 Dec: VarDec ASSIGNOP . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 91
+
+
+状态 67
+
+   39 Def: Specifier DecList SEMI .
+
+    $default  使用规则 39 以归约 (Def)
+
+
+状态 68
+
+   42 DecList: Dec COMMA . DecList
+
+    ID  偏移，并进入状态 37
+
+    VarDec   转到状态 42
+    DecList  转到状态 92
+    Dec      转到状态 44
+
+
+状态 69
+
+   23 VarList: ParamDec COMMA VarList .
+
+    $default  使用规则 23 以归约 (VarList)
+
+
+状态 70
+
+   36 Stmt: error SEMI .
+
+    $default  使用规则 36 以归约 (Stmt)
+
+
+状态 71
+
+   56 Exp: ID LP . Args RP
+   57    | ID LP . RP
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+    RP     偏移，并进入状态 93
+
+    Exp   转到状态 94
+    Args  转到状态 95
+
+
+状态 72
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   54    | MINUS Exp .
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    STAR  偏移，并进入状态 85
+    DIV   偏移，并进入状态 86
+    DOT   偏移，并进入状态 89
+    LB    偏移，并进入状态 90
+
+    $default  使用规则 54 以归约 (Exp)
+
+
+状态 73
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   55    | NOT Exp .
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    DOT  偏移，并进入状态 89
+    LB   偏移，并进入状态 90
+
+    $default  使用规则 55 以归约 (Exp)
+
+
+状态 74
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   53    | LP Exp . RP
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    RP        偏移，并进入状态 96
+    LB        偏移，并进入状态 90
+
+
+状态 75
+
+   32 Stmt: RETURN Exp . SEMI
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    SEMI      偏移，并进入状态 97
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    LB        偏移，并进入状态 90
+
+
+状态 76
+
+   33 Stmt: IF LP . Exp RP Stmt
+   34     | IF LP . Exp RP Stmt ELSE Stmt
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 98
+
+
+状态 77
+
+   35 Stmt: WHILE LP . Exp RP Stmt
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 99
+
+
+状态 78
+
+   27 CompSt: LC DefList StmtList RC .
+
+    $default  使用规则 27 以归约 (CompSt)
+
+
+状态 79
+
+   28 StmtList: Stmt StmtList .
+
+    $default  使用规则 28 以归约 (StmtList)
+
+
+状态 80
+
+   30 Stmt: Exp SEMI .
+
+    $default  使用规则 30 以归约 (Stmt)
+
+
+状态 81
+
+   45 Exp: Exp ASSIGNOP . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 100
+
+
+状态 82
+
+   48 Exp: Exp RELOP . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 101
+
+
+状态 83
+
+   49 Exp: Exp PLUS . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 102
+
+
+状态 84
+
+   50 Exp: Exp MINUS . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 103
+
+
+状态 85
+
+   51 Exp: Exp STAR . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 104
+
+
+状态 86
+
+   52 Exp: Exp DIV . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 105
+
+
+状态 87
+
+   46 Exp: Exp AND . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 106
+
+
+状态 88
+
+   47 Exp: Exp OR . Exp
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 107
+
+
+状态 89
+
+   59 Exp: Exp DOT . ID
+
+    ID  偏移，并进入状态 108
+
+
+状态 90
+
+   58 Exp: Exp LB . Exp RB
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp  转到状态 109
+
+
+状态 91
+
+   44 Dec: VarDec ASSIGNOP Exp .
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    LB        偏移，并进入状态 90
+
+    $default  使用规则 44 以归约 (Dec)
+
+
+状态 92
+
+   42 DecList: Dec COMMA DecList .
+
+    $default  使用规则 42 以归约 (DecList)
+
+
+状态 93
+
+   57 Exp: ID LP RP .
+
+    $default  使用规则 57 以归约 (Exp)
+
+
+状态 94
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+   63 Args: Exp . COMMA Args
+   64     | Exp .
+
+    COMMA     偏移，并进入状态 110
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    LB        偏移，并进入状态 90
+
+    $default  使用规则 64 以归约 (Args)
+
+
+状态 95
+
+   56 Exp: ID LP Args . RP
+
+    RP  偏移，并进入状态 111
+
+
+状态 96
+
+   53 Exp: LP Exp RP .
+
+    $default  使用规则 53 以归约 (Exp)
+
+
+状态 97
+
+   32 Stmt: RETURN Exp SEMI .
+
+    $default  使用规则 32 以归约 (Stmt)
+
+
+状态 98
+
+   33 Stmt: IF LP Exp . RP Stmt
+   34     | IF LP Exp . RP Stmt ELSE Stmt
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    RP        偏移，并进入状态 112
+    LB        偏移，并进入状态 90
+
+
+状态 99
+
+   35 Stmt: WHILE LP Exp . RP Stmt
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    RP        偏移，并进入状态 113
+    LB        偏移，并进入状态 90
+
+
+状态 100
+
+   45 Exp: Exp . ASSIGNOP Exp
+   45    | Exp ASSIGNOP Exp .
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    LB        偏移，并进入状态 90
+
+    $default  使用规则 45 以归约 (Exp)
+
+
+状态 101
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   48    | Exp RELOP Exp .
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    PLUS   偏移，并进入状态 83
+    MINUS  偏移，并进入状态 84
+    STAR   偏移，并进入状态 85
+    DIV    偏移，并进入状态 86
+    DOT    偏移，并进入状态 89
+    LB     偏移，并进入状态 90
+
+    $default  使用规则 48 以归约 (Exp)
+
+
+状态 102
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   49    | Exp PLUS Exp .
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    STAR  偏移，并进入状态 85
+    DIV   偏移，并进入状态 86
+    DOT   偏移，并进入状态 89
+    LB    偏移，并进入状态 90
+
+    $default  使用规则 49 以归约 (Exp)
+
+
+状态 103
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   50    | Exp MINUS Exp .
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    STAR  偏移，并进入状态 85
+    DIV   偏移，并进入状态 86
+    DOT   偏移，并进入状态 89
+    LB    偏移，并进入状态 90
+
+    $default  使用规则 50 以归约 (Exp)
+
+
+状态 104
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   51    | Exp STAR Exp .
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    DOT  偏移，并进入状态 89
+    LB   偏移，并进入状态 90
+
+    $default  使用规则 51 以归约 (Exp)
+
+
+状态 105
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   52    | Exp DIV Exp .
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    DOT  偏移，并进入状态 89
+    LB   偏移，并进入状态 90
+
+    $default  使用规则 52 以归约 (Exp)
+
+
+状态 106
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   46    | Exp AND Exp .
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    RELOP  偏移，并进入状态 82
+    PLUS   偏移，并进入状态 83
+    MINUS  偏移，并进入状态 84
+    STAR   偏移，并进入状态 85
+    DIV    偏移，并进入状态 86
+    DOT    偏移，并进入状态 89
+    LB     偏移，并进入状态 90
+
+    $default  使用规则 46 以归约 (Exp)
+
+
+状态 107
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   47    | Exp OR Exp .
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   59    | Exp . DOT ID
+
+    RELOP  偏移，并进入状态 82
+    PLUS   偏移，并进入状态 83
+    MINUS  偏移，并进入状态 84
+    STAR   偏移，并进入状态 85
+    DIV    偏移，并进入状态 86
+    AND    偏移，并进入状态 87
+    DOT    偏移，并进入状态 89
+    LB     偏移，并进入状态 90
+
+    $default  使用规则 47 以归约 (Exp)
+
+
+状态 108
+
+   59 Exp: Exp DOT ID .
+
+    $default  使用规则 59 以归约 (Exp)
+
+
+状态 109
+
+   45 Exp: Exp . ASSIGNOP Exp
+   46    | Exp . AND Exp
+   47    | Exp . OR Exp
+   48    | Exp . RELOP Exp
+   49    | Exp . PLUS Exp
+   50    | Exp . MINUS Exp
+   51    | Exp . STAR Exp
+   52    | Exp . DIV Exp
+   58    | Exp . LB Exp RB
+   58    | Exp LB Exp . RB
+   59    | Exp . DOT ID
+
+    ASSIGNOP  偏移，并进入状态 81
+    RELOP     偏移，并进入状态 82
+    PLUS      偏移，并进入状态 83
+    MINUS     偏移，并进入状态 84
+    STAR      偏移，并进入状态 85
+    DIV       偏移，并进入状态 86
+    AND       偏移，并进入状态 87
+    OR        偏移，并进入状态 88
+    DOT       偏移，并进入状态 89
+    LB        偏移，并进入状态 90
+    RB        偏移，并进入状态 114
+
+
+状态 110
+
+   63 Args: Exp COMMA . Args
+
+    INT    偏移，并进入状态 53
+    FLOAT  偏移，并进入状态 54
+    ID     偏移，并进入状态 55
+    MINUS  偏移，并进入状态 56
+    NOT    偏移，并进入状态 57
+    LP     偏移，并进入状态 58
+
+    Exp   转到状态 94
+    Args  转到状态 115
+
+
+状态 111
+
+   56 Exp: ID LP Args RP .
+
+    $default  使用规则 56 以归约 (Exp)
+
+
+状态 112
+
+   33 Stmt: IF LP Exp RP . Stmt
+   34     | IF LP Exp RP . Stmt ELSE Stmt
+
+    error   偏移，并进入状态 52
+    INT     偏移，并进入状态 53
+    FLOAT   偏移，并进入状态 54
+    ID      偏移，并进入状态 55
+    MINUS   偏移，并进入状态 56
+    NOT     偏移，并进入状态 57
+    LP      偏移，并进入状态 58
+    LC      偏移，并进入状态 26
+    RETURN  偏移，并进入状态 59
+    IF      偏移，并进入状态 60
+    WHILE   偏移，并进入状态 61
+
+    CompSt  转到状态 62
+    Stmt    转到状态 116
+    Exp     转到状态 65
+
+
+状态 113
+
+   35 Stmt: WHILE LP Exp RP . Stmt
+
+    error   偏移，并进入状态 52
+    INT     偏移，并进入状态 53
+    FLOAT   偏移，并进入状态 54
+    ID      偏移，并进入状态 55
+    MINUS   偏移，并进入状态 56
+    NOT     偏移，并进入状态 57
+    LP      偏移，并进入状态 58
+    LC      偏移，并进入状态 26
+    RETURN  偏移，并进入状态 59
+    IF      偏移，并进入状态 60
+    WHILE   偏移，并进入状态 61
+
+    CompSt  转到状态 62
+    Stmt    转到状态 117
+    Exp     转到状态 65
+
+
+状态 114
+
+   58 Exp: Exp LB Exp RB .
+
+    $default  使用规则 58 以归约 (Exp)
+
+
+状态 115
+
+   63 Args: Exp COMMA Args .
+
+    $default  使用规则 63 以归约 (Args)
+
+
+状态 116
+
+   33 Stmt: IF LP Exp RP Stmt .
+   34     | IF LP Exp RP Stmt . ELSE Stmt
+
+    ELSE  偏移，并进入状态 118
+
+    $default  使用规则 33 以归约 (Stmt)
+
+
+状态 117
+
+   35 Stmt: WHILE LP Exp RP Stmt .
+
+    $default  使用规则 35 以归约 (Stmt)
+
+
+状态 118
+
+   34 Stmt: IF LP Exp RP Stmt ELSE . Stmt
+
+    error   偏移，并进入状态 52
+    INT     偏移，并进入状态 53
+    FLOAT   偏移，并进入状态 54
+    ID      偏移，并进入状态 55
+    MINUS   偏移，并进入状态 56
+    NOT     偏移，并进入状态 57
+    LP      偏移，并进入状态 58
+    LC      偏移，并进入状态 26
+    RETURN  偏移，并进入状态 59
+    IF      偏移，并进入状态 60
+    WHILE   偏移，并进入状态 61
+
+    CompSt  转到状态 62
+    Stmt    转到状态 119
+    Exp     转到状态 65
+
+
+状态 119
+
+   34 Stmt: IF LP Exp RP Stmt ELSE Stmt .
+
+    $default  使用规则 34 以归约 (Stmt)
